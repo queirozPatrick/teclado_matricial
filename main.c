@@ -20,12 +20,46 @@
 void setup_gpio() {
     // Configurar linhas do teclado como saída
    
-    // Configurar colunas do teclado como entrada com pull-down
+    // Configurar colunas do teclado como entrada com pull-up
  
     // Configurar LEDs e buzzer como saída
 
 // Leitura do teclado matricial - Desenvolvedor 3
-char read_keypad()
+// Matriz representando os botões
+const char TECLAS[4][4] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}
+};
+
+
+char read_keypad() {
+    const uint rows[] = {ROW_1, ROW_2, ROW_3, ROW_4};
+    const uint cols[] = {COL_1, COL_2, COL_3, COL_4};
+
+    for (int linha = 0; linha < 4; linha++) {
+        gpio_put(rows[linha], 0); // Ativa a linha atual (LOW)
+
+        for (int coluna = 0; coluna < 4; coluna++) {
+            if (gpio_get(cols[coluna]) == 1) { // Verifica se a coluna está HIGH
+                sleep_ms(50); // Debounce
+                if (gpio_get(cols[coluna]) == 1) {
+                    while (gpio_get(cols[coluna]) == 1) {
+                        sleep_ms(10); // Aguarda o botão ser solto
+                    }
+                    gpio_put(rows[linha], 1); // Restaura a linha para HIGH
+                    return TECLAS[linha][coluna];
+                }
+            }
+        }
+
+        gpio_put(rows[linha], 1); // Desativa a linha atual (HIGH)
+    }
+
+    return '\0'; // Nenhuma tecla pressionada
+}
+
 
 // Controle básico dos LEDs - Desenvolvedor 4
 void control_led()
