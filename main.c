@@ -26,7 +26,19 @@
 
 // Configuração dos GPIOs - Desenvolvedor 2
 void setup_gpio() {
-    // Configurar linhas do teclado como saída
+    // inicializando cada tecla 
+    gpio_init(ROW_1);
+    gpio_init(ROW_2);
+    gpio_init(ROW_3);
+    gpio_init(ROW_4);
+    gpio_set_dir(ROW_1, GPIO_OUT);
+    gpio_set_dir(ROW_2, GPIO_OUT);
+    gpio_set_dir(ROW_3, GPIO_OUT);
+    gpio_set_dir(ROW_4, GPIO_OUT);
+    gpio_put(ROW_1, 1);
+    gpio_put(ROW_2, 1);
+    gpio_put(ROW_3, 1);
+    gpio_put(ROW_4, 1);
    
     // Configurar colunas do teclado como entrada com pull-down
  
