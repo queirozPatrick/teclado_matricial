@@ -11,9 +11,15 @@
 #define COL_2 7
 #define COL_3 8
 #define COL_4 9
-#define LED_GREEN 11
-#define LED_BLUE 12
-#define LED_RED 13
+#define LED1_RED 11
+#define LED1_GREEN 12
+#define LED1_BLUE 13
+#define LED2_RED 14
+#define LED2_GREEN 15
+#define LED2_BLUE 16
+#define LED3_RED 17
+#define LED3_GREEN 18
+#define LED3_BLUE 19
 #define BUZZER 21
 #define NUM_LINHAS 4
 #define NUM_COLUNAS 4
@@ -65,7 +71,69 @@ char read_keypad() {
 
 
 // Controle básico dos LEDs - Desenvolvedor 4
-void control_led();
+void control_led() {
+    char key = read_keypad();
+
+    switch (key) {
+        case '1':
+            gpio_put(LED1_RED, 1);
+            printf("LED 1: Vermelho ativado.\n");
+            break;
+        case '2':
+            gpio_put(LED1_GREEN, 1);
+            printf("LED 1: Verde ativado.\n");
+            break;
+        case '3':
+            gpio_put(LED1_BLUE, 1);
+            printf("LED 1: Azul ativado.\n");
+            break;
+        case '4':
+            gpio_put(LED1_RED, 0);
+            gpio_put(LED1_GREEN, 0);
+            gpio_put(LED1_BLUE, 0);
+            printf("LED 1 desativado.\n");
+            break;
+        case '5':
+            gpio_put(LED2_RED, 1);
+            printf("LED 2: Vermelho ativado.\n");
+            break;
+        case '6':
+            gpio_put(LED2_GREEN, 1);
+            printf("LED 2: Verde ativado.\n");
+            break;
+        case '7':
+            gpio_put(LED2_BLUE, 1);
+            printf("LED 2: Azul ativado.\n");
+            break;
+        case '8':
+            gpio_put(LED2_RED, 0);
+            gpio_put(LED2_GREEN, 0);
+            gpio_put(LED2_BLUE, 0);
+            printf("LED 2 desativado.\n");
+            break;
+        case '9':
+            gpio_put(LED3_RED, 1);
+            printf("LED 3: Vermelho ativado.\n");
+            break;
+        case 'A':
+            gpio_put(LED3_GREEN, 1);
+            printf("LED 3: Verde ativado.\n");
+            break;
+        case 'B':
+            gpio_put(LED3_BLUE, 1);
+            printf("LED 3: Azul ativado.\n");
+            break;
+        case 'C':
+            gpio_put(LED3_RED, 0);
+            gpio_put(LED3_GREEN, 0);
+            gpio_put(LED3_BLUE, 0);
+            printf("LED 3 desativado.\n");
+            break;
+        default:
+            break;
+    }
+}
+
 
 // Controle avançado dos LEDs - Desenvolvedor 5
 void advanced_led_pattern();
