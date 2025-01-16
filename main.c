@@ -39,10 +39,45 @@ void setup_gpio() {
     gpio_put(ROW_2, 1);
     gpio_put(ROW_3, 1);
     gpio_put(ROW_4, 1);
+
+    
+    gpio_init(COL_1);
+    gpio_init(COL_2);
+    gpio_init(COL_3);
+    gpio_init(COL_4);
+    gpio_set_dir(COL_1, GPIO_IN);
+    gpio_set_dir(COL_2, GPIO_IN);
+    gpio_set_dir(COL_3, GPIO_IN);
+    gpio_set_dir(COL_4, GPIO_IN);
+    gpio_pull_down(COL_1);
+    gpio_pull_down(COL_2);
+    gpio_pull_down(COL_3);
+    gpio_pull_down(COL_4);
    
-    // Configurar colunas do teclado como entrada com pull-down
- 
-    // Configurar LEDs e buzzer como saída
+    gpio_init(LED1_RED);
+    gpio_init(LED1_GREEN);
+    gpio_init(LED1_BLUE);
+    gpio_init(LED2_RED);
+    gpio_init(LED2_GREEN);
+    gpio_init(LED2_BLUE);
+    gpio_init(LED3_RED);
+    gpio_init(LED3_GREEN);
+    gpio_init(LED3_BLUE);
+    gpio_set_dir(LED1_RED, GPIO_OUT);
+    gpio_set_dir(LED1_GREEN, GPIO_OUT);
+    gpio_set_dir(LED1_BLUE, GPIO_OUT);
+    gpio_set_dir(LED2_RED, GPIO_OUT);
+    gpio_set_dir(LED2_GREEN, GPIO_OUT);
+    gpio_set_dir(LED2_BLUE, GPIO_OUT);
+    gpio_set_dir(LED3_RED, GPIO_OUT);
+    gpio_set_dir(LED3_GREEN, GPIO_OUT);
+    gpio_set_dir(LED3_BLUE, GPIO_OUT);
+
+    // Configurar buzzer como saída
+    gpio_init(BUZZER);
+    gpio_set_dir(BUZZER, GPIO_OUT);
+
+    printf("GPIO configurados com sucesso.\n");
 }
 
 // Leitura do teclado matricial - Desenvolvedor 3
