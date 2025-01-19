@@ -183,8 +183,108 @@ void control_led() {
 
 
 // Controle avançado dos LEDs - Desenvolvedor 5
-void advanced_led_pattern();
 
+
+
+void control_led_pattern() {
+    const tempo = 250;
+    char key = read_keypad();
+    switch(key){
+        case '0':
+            printf("efeito visual blink alternando as cores.\n");
+            while(true)
+            {
+            gpio_put(LED1_BLUE, 1);
+            gpio_put(LED2_RED, 1);
+            gpio_put(LED3_GREEN, 1);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_BLUE, 0);
+            gpio_put(LED2_RED, 0);
+            gpio_put(LED3_GREEN, 0);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_RED, 1);
+            gpio_put(LED2_GREEN, 1);
+            gpio_put(LED3_BLUE, 1);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_RED, 0);
+            gpio_put(LED2_GREEN, 0);
+            gpio_put(LED3_BLUE, 0);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_GREEN, 1);
+            gpio_put(LED2_RED, 1);
+            gpio_put(LED3_BLUE, 1);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_GREEN, 0);
+            gpio_put(LED2_RED, 0);
+            gpio_put(LED3_BLUE, 0);
+            sleep_ms(tempo);
+
+            gpio_put(LED1_GREEN, 1);
+            gpio_put(LED2_GREEN, 1);
+            gpio_put(LED3_GREEN, 1);
+            sleep_ms(500);
+
+            gpio_put(LED1_GREEN, 0);
+            gpio_put(LED2_GREEN, 0);
+            gpio_put(LED3_GREEN, 0);
+            sleep_ms(500);
+
+            }
+            break;
+        case 'D':
+            printf("efeito visual S.O.S em código morse.\n");
+            while (true) {
+            //3 PONTOS . . .  (S)
+            gpio_put(LED1_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED1_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED1_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED1_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED1_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED1_RED, 0);
+            sleep_ms(tempo);
+            //3 TRAÇOS - - - (O)
+            gpio_put(LED2_RED, 1);
+            sleep_ms(800);
+            gpio_put(LED2_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED2_RED, 1);
+            sleep_ms(800);
+            gpio_put(LED2_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED2_RED, 1);
+            sleep_ms(800);
+            gpio_put(LED2_RED, 0);
+            sleep_ms(tempo);
+            //3 PONTOS . . . (S)
+            gpio_put(LED3_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED3_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED3_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED3_RED, 0);
+            sleep_ms(125);
+            gpio_put(LED3_RED, 1);
+            sleep_ms(200);
+            gpio_put(LED3_RED, 0);
+            sleep_ms(3000);
+            }
+            break;
+            default:
+            break;
+    }
+
+}
 // Controle do buzzer - Desenvolvedor 6
 void control_buzzer();
 
