@@ -34,6 +34,15 @@ Desenvolver um programa em **linguagem C** que:
 
 3. **Simulação:**
    - Simulação completa no **Wokwi** dispensando hardware real.
+     
+4. **Comandos**
+- Aperta 1 = liga led vermelho
+- Aperta 2 = liga led verde
+- Aperta 3 = liga led azul
+- Aperta 4 = desliga os LEDs
+- Aperta 5 = DÓ-RÉ-MI no buzzer (2 segundos cada nota)
+- Aperta D = código morse (SOS) com LED vermelho
+- Aperta 0 = pisca alternando entre as cores
 
 ---
 
@@ -72,8 +81,8 @@ Desenvolver um programa em **linguagem C** que:
 
 ## 🎥 Demonstração
 
-- [Vídeo no Wokwi](a ser concluído)
-- [Vídeo na BitDogLab](a ser concluído)
+Assista ao vídeo demonstrativo clicando [aqui] https://www.youtube.com/watch?v=0OIFq5b_DUI
+
 ---
 
 ## 📌 Organização do Projeto
@@ -95,7 +104,18 @@ Desenvolver um programa em **linguagem C** que:
 
 ---
 ## Desenvolvolvido por:
-xx
-xx
-xx
-xx
+
+Patrick Queiroz 
+queirozPatrick • Collaborator
+
+Alex Bomfim
+Alex-SB7 • Collaborator
+
+João Victor Paim
+PaimJv • Collaborator
+
+Josimar Souza
+perseu120 • Collaborator
+
+Heitor Lemos
+TorRLD • Collaborator
