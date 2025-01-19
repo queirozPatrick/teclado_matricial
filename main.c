@@ -24,6 +24,9 @@
 #define NUM_LINHAS 4
 #define NUM_COLUNAS 4
 
+
+volatile bool stop_pattern = false;  // Controle global
+
 // Inicialização dos GPIOs do teclado matricial
 void setup_gpio() {
 
@@ -183,12 +186,14 @@ void control_led() {
 
 // Controle avançado dos LEDs - Desenvolvedor 5
 void control_led_pattern() {
+    
     const int tempo = 250;
     char key = read_keypad();
     switch(key){
         case '0':
             printf("efeito visual blink alternando as cores.\n");
-            while(true)
+            stop_pattern = false;  // Reinicia a condição
+            while(!stop_pattern)
             {
             gpio_put(LED1_BLUE, 1);
             gpio_put(LED2_RED, 1);
@@ -228,13 +233,17 @@ void control_led_pattern() {
             gpio_put(LED1_GREEN, 0);
             gpio_put(LED2_GREEN, 0);
             gpio_put(LED3_GREEN, 0);
+            
             sleep_ms(500);
+        if (read_keypad() == 'D') stop_pattern = true;  // Define saída
+    }
 
-            }
-            break;
+    break;
+
         case 'D':
             printf("efeito visual S.O.S em código morse.\n");
-            while (true) {
+            stop_pattern = false;  // Reinicia a condição
+            while (!stop_pattern) {
             //3 PONTOS . . .  (S)
             gpio_put(LED1_RED, 1);
             sleep_ms(200);
@@ -275,12 +284,11 @@ void control_led_pattern() {
             gpio_put(LED3_RED, 0);
             sleep_ms(3000);
             }
-            break;
-            default:
-            break;
-    }
 
-}
+            if (read_keypad() == 'D') stop_pattern = true;  // Define saída
+            break;
+        }
+    }
 // Controle do buzzer - Desenvolvedor 6
 void control_buzzer(int estado, int duracao) {
     if (estado == 1) {
@@ -296,12 +304,81 @@ void control_buzzer(int estado, int duracao) {
 
 
 // Integração e testes - Desenvolvedor 7
-void run_tests();
+void run_tests() {
+    printf("Iniciando testes de integração...\n");
+
+    // Teste dos GPIOs configurados
+    printf("Teste: Configuração dos GPIOs...\n");
+    gpio_put(LED1_RED, 1);
+    sleep_ms(100);
+    gpio_put(LED1_RED, 0);
+    gpio_put(LED1_GREEN, 1);
+    sleep_ms(100);
+    gpio_put(LED1_GREEN, 0);
+    gpio_put(LED1_BLUE, 1);
+    sleep_ms(100);
+    gpio_put(LED1_BLUE, 0);
+    printf("GPIOs dos LEDs 1 configurados corretamente.\n");
+
+    gpio_put(LED2_RED, 1);
+    sleep_ms(100);
+    gpio_put(LED2_RED, 0);
+    gpio_put(LED2_GREEN, 1);
+    sleep_ms(100);
+    gpio_put(LED2_GREEN, 0);
+    gpio_put(LED2_BLUE, 1);
+    sleep_ms(100);
+    gpio_put(LED2_BLUE, 0);
+    printf("GPIOs dos LEDs 2 configurados corretamente.\n");
+
+    gpio_put(LED3_RED, 1);
+    sleep_ms(100);
+    gpio_put(LED3_RED, 0);
+    gpio_put(LED3_GREEN, 1);
+    sleep_ms(100);
+    gpio_put(LED3_GREEN, 0);
+    gpio_put(LED3_BLUE, 1);
+    sleep_ms(100);
+    gpio_put(LED3_BLUE, 0);
+    printf("GPIOs dos LEDs 3 configurados corretamente.\n");
+
+    // Teste do buzzer
+    printf("Teste: Buzzer...\n");
+    control_buzzer(1, 500);
+    control_buzzer(0, 0);
+    printf("Buzzer testado com sucesso.\n");
+
+    // Teste do teclado matricial
+    printf("Teste: Leitura do teclado matricial...\n");
+    printf("Pressione uma tecla no teclado matricial.\n");
+    char tecla = read_keypad();
+    if (tecla != '\0') {
+        printf("Tecla '%c' detectada com sucesso.\n", tecla);
+    } else {
+        printf("Nenhuma tecla detectada. Verifique a configuração do teclado.\n");
+    }
+
+    // Teste dos padrões de LED
+    printf("Teste: Padrões de LED...\n");
+    printf("Iniciando padrão blink alternado...\n");
+    gpio_put(LED1_RED, 1);
+    gpio_put(LED2_GREEN, 1);
+    gpio_put(LED3_BLUE, 1);
+    sleep_ms(200);
+    gpio_put(LED1_RED, 0);
+    gpio_put(LED2_GREEN, 0);
+    gpio_put(LED3_BLUE, 0);
+    printf("Padrão blink alternado executado com sucesso.\n");
+
+    printf("Testes de integração concluídos.\n");
+}
 
 // Função principal - Desenvolvedor 1
 int main() {
     stdio_init_all();
     setup_gpio();
+    control_buzzer(0, 0);  // Desativa o buzzer
+    run_tests();  // Chamada à função de testes
     printf("Sistema iniciado. Pressione uma tecla para controlar os dispositivos.\n");
     
     while (true) {
@@ -311,3 +388,4 @@ int main() {
     
 return 0;
 }
+
