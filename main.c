@@ -24,9 +24,9 @@
 #define NUM_LINHAS 4
 #define NUM_COLUNAS 4
 
-// Configuração dos GPIOs - Desenvolvedor 2
+// Inicialização dos GPIOs do teclado matricial
 void setup_gpio() {
-    // inicializando cada tecla 
+
     gpio_init(ROW_1);
     gpio_init(ROW_2);
     gpio_init(ROW_3);
@@ -40,7 +40,6 @@ void setup_gpio() {
     gpio_put(ROW_3, 1);
     gpio_put(ROW_4, 1);
 
-    
     gpio_init(COL_1);
     gpio_init(COL_2);
     gpio_init(COL_3);
@@ -53,7 +52,8 @@ void setup_gpio() {
     gpio_pull_down(COL_2);
     gpio_pull_down(COL_3);
     gpio_pull_down(COL_4);
-   
+
+// Inicialização dos LEDs
     gpio_init(LED1_RED);
     gpio_init(LED1_GREEN);
     gpio_init(LED1_BLUE);
@@ -181,13 +181,9 @@ void control_led() {
     }
 }
 
-
 // Controle avançado dos LEDs - Desenvolvedor 5
-
-
-
 void control_led_pattern() {
-    const tempo = 250;
+    const int tempo = 250;
     char key = read_keypad();
     switch(key){
         case '0':
@@ -296,5 +292,11 @@ int main() {
     stdio_init_all();
     setup_gpio();
     printf("Sistema iniciado. Pressione uma tecla para controlar os dispositivos.\n");
-
+    
+    while (true) {
+        control_led();
+        control_led_pattern();
+    }
+    
+return 0;
 }
