@@ -48,7 +48,7 @@ void setup_gpio() {
     gpio_put(ROW_3, 1);
     gpio_put(ROW_4, 1);
 
-    // ------------ Configuração das colunas (entrada) ------------
+    // ------------ Configuração das colunas (entrada, pull-up) ------------
     gpio_init(COL_1);
     gpio_init(COL_2);
     gpio_init(COL_3);
@@ -59,7 +59,7 @@ void setup_gpio() {
     gpio_set_dir(COL_3, GPIO_IN);
     gpio_set_dir(COL_4, GPIO_IN);
 
-    // Ativamos pull-up nas colunas
+    // Pull-up em cada coluna (0 = pressionado)
     gpio_pull_up(COL_1);
     gpio_pull_up(COL_2);
     gpio_pull_up(COL_3);
@@ -78,7 +78,6 @@ void setup_gpio() {
     gpio_init(BUZZER);
     gpio_set_dir(BUZZER, GPIO_OUT);
 
-    // Mensagem de debug
     printf("GPIO configurados com sucesso.\n");
 }
 
@@ -97,7 +96,8 @@ const char KEYPAD[NUM_LINHAS][NUM_COLUNAS] = {
  */
 void play_note(unsigned int freq, unsigned int durationMs) {
     if (freq == 0) {
-        sleep_ms(durationMs); // Se freq=0, apenas aguarda
+        // Se freq=0, apenas aguarda
+        sleep_ms(durationMs);
         return;
     }
 
@@ -201,7 +201,7 @@ void control_led() {
             printf("LED1 desativado.\n");
             break;
 
-        // ------------ EFEITO DÓ-RÉ-MI AO PRESSIONAR TECLA '5' ------------
+        // EFEITO DÓ-RÉ-MI AO PRESSIONAR TECLA '5'
         case '5':
             printf("Iniciando efeito DÓ-RÉ-MI...\n");
             play_do_re_mi();
@@ -364,8 +364,11 @@ int main() {
     printf("Sistema iniciado. Pressione uma tecla para controlar os dispositivos.\n");
     
     while (true) {
-        control_led();         // Liga/desliga LED e executa DÓ-RÉ-MI
-        control_led_pattern(); // Efeitos especiais (blink e SOS)
+        // 1) Controla LED (inclui Dó-Ré-Mi na tecla '5')
+        control_led();
+
+        // 2) Controla efeitos blink e S.O.S
+        control_led_pattern();
     }
     
     return 0;
