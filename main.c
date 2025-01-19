@@ -282,7 +282,18 @@ void control_led_pattern() {
 
 }
 // Controle do buzzer - Desenvolvedor 6
-void control_buzzer();
+void control_buzzer(int estado, int duracao) {
+    if (estado == 1) {
+        gpio_put(BUZZER, 1);
+        if (duracao > 0) {
+            sleep_ms(duracao);
+            gpio_put(BUZZER, 0);
+        }
+    } else {
+        gpio_put(BUZZER, 0);
+    }
+}
+
 
 // Integração e testes - Desenvolvedor 7
 void run_tests();
