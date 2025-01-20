@@ -81,7 +81,9 @@ Desenvolver um programa em **linguagem C** que:
 
 ## 🎥 Demonstração
 
-Assista ao vídeo demonstrativo clicando [aqui](https://www.youtube.com/watch?v=0OIFq5b_DUI)
+Assista ao vídeo demonstrativo clicando [aqui](https://www.youtube.com/watch?v=0OIFq5b_DUI).
+
+
 Link da simulação no wokwi: https://wokwi.com/projects/420262014836493313
 ---
 
